@@ -18,13 +18,6 @@
   font-family: var(--font-mono);
 }
 
-.description a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-}
-
 .description p {
   position: relative;
   margin: 0;
@@ -39,6 +32,15 @@
   grid-template-columns: repeat(4, minmax(25%, auto));
   max-width: 100%;
   width: var(--max-width);
+}
+
+.fixedCartContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
 }
 
 .basket,
@@ -92,45 +94,40 @@
 
 /* Mobile */
 @media (max-width: 700px) {
-  .content {
-    padding: 4rem;
-  }
-
   .grid {
-    /* TODO Look up how to make a single column list*/
+    /* TODO = DONE Look up how to make a single column list*/
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
     margin-bottom: 120px;
     max-width: 320px;
     text-align: center;
   }
 
+  .fixedCartContainer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #f0f0f0;
+    padding: 1rem;
+    z-index: 1;
+  }
+
   .basket,
   .card {
     padding: 1rem 2.5rem;
+    text-align: center;
   }
 
   .card h2 {
     margin-bottom: 0.5rem;
   }
 
-  .description {
-    font-size: 0.8rem;
-  }
-
-  .description a {
-    padding: 1rem;
-  }
-
-  .description p,
-  .description div {
-    display: flex;
-    justify-content: center;
-    position: fixed;
-    width: 100%;
-  }
-
   .description p {
-    align-items: center;
     inset: 0 0 auto;
+    text-align: center;
+    position: fixed;
     padding: 2rem 1rem 1.4rem;
     border-radius: 0;
     border: none;
@@ -145,17 +142,13 @@
   }
 
   .description div {
-    align-items: flex-end;
-    pointer-events: none;
     inset: auto 0 0;
-    padding: 2rem;
     height: 200px;
     background: linear-gradient(
       to bottom,
       transparent 0%,
       rgb(var(--background-end-rgb)) 40%
     );
-    z-index: 1;
   }
 }
 
@@ -163,5 +156,8 @@
 @media (min-width: 701px) and (max-width: 1120px) {
   .grid {
     /* TODO Look up how to make a 2 column list*/
+    display: grid;
+    grid-template-columns: repeat(2, minmax(25%, auto));
+    gap: 20px;
   }
 }

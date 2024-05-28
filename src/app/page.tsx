@@ -11,9 +11,12 @@ export default function Home() {
   const [itemCount, setItemCount] = useState<number>(0);
 
   const addToCart = (product: string) => {
-    const alreadyInCart = items.find(item => item.name === product);
-    if (alreadyInCart) {
-      // @TODO need to find out how to update cart items
+    const alreadyInCart = items.findIndex(item => item.name === product);
+    if (alreadyInCart !== -1) {
+      // @TODO = DONE need to find out how to update cart items
+      setItems(items.map((item, index) => 
+        index === alreadyInCart ? { ...item, quantity: item.quantity + 1} : item
+      ));
     } else {
       setItems([...items, { name: product, quantity: 1 }]);
     }
@@ -26,7 +29,7 @@ export default function Home() {
         <p>
           Michael&apos;s Amazing Web Store
         </p>
-        <div>
+        <div className={styles.fixedCartContainer}>
           <button className={styles.basket}>Basket: {itemCount} items</button>
           <ItemCount name="Item 1" count={items.find(item=> item.name === 'Item 1')?.quantity || 0}/>
           <ItemCount name="Item 2" count={items.find(item=> item.name === 'Item 2')?.quantity || 0}/>
@@ -36,10 +39,10 @@ export default function Home() {
       </div>
 
       <div className={styles.grid}>
-        <button className={styles.card} onClick={() => addToCart('Item 1')} aria-label="Add to basket"><h2>Item 1 <span>-&gt;</span></h2><p>Foo</p></button>
-        <button className={styles.card} onClick={() => addToCart('Item 2')} aria-label="Add to basket"><h2>Item 2 <span>-&gt;</span></h2><p>Bar</p></button>
-        <button className={styles.card} onClick={() => addToCart('Item 3')} aria-label="Add to basket"><h2>Item 3 <span>-&gt;</span></h2><p>Baz</p></button>
-        <button className={styles.card} onClick={() => addToCart('Item 4')} aria-label="Add to basket"><h2>Item 4 <span>-&gt;</span></h2><p>Qux</p></button>
+        <button className={styles.card} onClick={() => addToCart('Item 1')} aria-label="Add Item 1 to basket"><h2>Item 1 <span>-&gt;</span></h2><p>Foo</p></button>
+        <button className={styles.card} onClick={() => addToCart('Item 2')} aria-label="Add Item 2 to basket"><h2>Item 2 <span>-&gt;</span></h2><p>Bar</p></button>
+        <button className={styles.card} onClick={() => addToCart('Item 3')} aria-label="Add Item 3 to basket"><h2>Item 3 <span>-&gt;</span></h2><p>Baz</p></button>
+        <button className={styles.card} onClick={() => addToCart('Item 4')} aria-label="Add Item 4 to basket"><h2>Item 4 <span>-&gt;</span></h2><p>Qux</p></button>
       </div>
     </main>
   )
